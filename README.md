@@ -1,4 +1,4 @@
-# boleto-cloud-sdk
+# Boleto Cloud PHP SDK
 SDK de integraçao com a API Boleto Cloud
 
 - Boleto Cloud - https://boletocloud.com/
