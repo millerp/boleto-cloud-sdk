@@ -43,7 +43,7 @@ class Client
     public function __construct(array $params = [])
     {
         if (!empty($params['env'])) {
-            $this->token = $params['env'];
+            $this->env = $params['env'];
         }
         if (!empty($params['token'])) {
             $this->token = $params['token'];
