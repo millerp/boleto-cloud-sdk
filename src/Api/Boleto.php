@@ -351,6 +351,9 @@ class Boleto implements ParserInteface
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function parser(): array
     {
         return array_merge_recursive([

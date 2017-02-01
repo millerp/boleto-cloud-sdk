@@ -68,16 +68,16 @@ class Client
         ]);
     }
 
+    /**
+     * @param Boleto $boleto
+     * @return array|mixed
+     */
     public function gerarBoleto(Boleto $boleto)
     {
         try {
             $response = $this->httpClient->post('boletos', [
                 'form_params' => $boleto->parser(),
                 'query'       => $boleto->getInstrucao(),
-                'proxy'       => [
-                    'http'  => 'http://192.168.111.70:3128', // Use this proxy with "http"
-                    'https' => 'http://192.168.111.70:3128', // Use this proxy with "https",
-                ],
             ]);
 
             $boletoUrl = str_replace('/api/v1/', '', $this->baseUrl);
