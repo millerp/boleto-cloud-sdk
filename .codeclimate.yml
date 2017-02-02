@@ -8,6 +8,11 @@ engines:
       - javascript
       - python
       - php
+    checks:
+      Identical code:
+        enabled: false
+      Naming/ShortVariable:
+        enabled: false
   fixme:
     enabled: true
   phpmd:
