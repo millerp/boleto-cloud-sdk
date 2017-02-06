@@ -74,5 +74,5 @@ $boleto->setConta($conta)
         'Mais info em http://www.boletocloud.com/app/dev/api' . date('d-m-y H:i:s'),
     ]);
 
-$retorno = $this->client->gerarBoleto($boleto);
+$retorno = $client->gerarBoleto($boleto);
 ```
