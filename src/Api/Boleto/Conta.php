@@ -28,6 +28,11 @@ class Conta implements ParserInteface
      */
     private $carteira;
 
+	/**
+	 * @var string
+	 */
+	private $token;
+
     /**
      * @return string
      */
@@ -104,13 +109,34 @@ class Conta implements ParserInteface
         return $this;
     }
 
+	/**
+	 * @return string
+	 */
+	public function getToken(): string
+	{
+		return $this->token;
+	}
+
+	/**
+	 * @param string $token
+	 * @return Conta
+	 */
+	public function setToken(string $token): Conta
+	{
+		$this->token = $token;
+
+		return $this;
+	}
+
     public function parser(): array
     {
-        return [
-            'boleto.conta.banco'    => $this->banco,
-            'boleto.conta.agencia'  => $this->agencia,
-            'boleto.conta.numero'   => $this->numero,
-            'boleto.conta.carteira' => $this->carteira,
-        ];
+        return ($this->token != null) ?
+	        ['boleto.token.token' => $this->token] :
+	        [
+	            'boleto.conta.banco'    => $this->banco,
+	            'boleto.conta.agencia'  => $this->agencia,
+	            'boleto.conta.numero'   => $this->numero,
+	            'boleto.conta.carteira' => $this->carteira,
+	        ];
     }
 }

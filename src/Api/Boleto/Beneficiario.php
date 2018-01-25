@@ -61,14 +61,6 @@ class Beneficiario implements ParserInteface
         return $this;
     }
 
-    public function parser(): array
-    {
-        return array_merge([
-            'boleto.beneficiario.nome' => $this->nome,
-            'boleto.beneficiario.cprf' => $this->cprf,
-        ], $this->getEndereco()->parser());
-    }
-
     /**
      * @return Endereco
      */
@@ -87,4 +79,12 @@ class Beneficiario implements ParserInteface
 
         return $this;
     }
+
+	public function parser(): array
+	{
+		return array_merge([
+			'boleto.beneficiario.nome' => $this->nome,
+			'boleto.beneficiario.cprf' => $this->cprf,
+		], $this->getEndereco()->parser());
+	}
 }
