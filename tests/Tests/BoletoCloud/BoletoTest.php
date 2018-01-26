@@ -137,6 +137,6 @@ class BoletoTest extends \PHPUnit\Framework\TestCase
             ]);
 
         $retorno = $this->client->gerarBoleto($boleto);
-        $this->assertObjectHasAttribute('erro', $retorno);
+        $this->assertArrayHasKey('erro', $retorno);
     }
 }

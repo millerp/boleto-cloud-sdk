@@ -92,7 +92,7 @@ class Client
             ];
 
         } catch (RequestException $e) {
-            return json_decode($e->getResponse()->getBody()->getContents());
+            return json_decode($e->getResponse()->getBody()->getContents(), true);
         }
     }
 
