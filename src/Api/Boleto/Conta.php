@@ -131,7 +131,7 @@ class Conta implements ParserInteface
     public function parser(): array
     {
         return ($this->token != null) ?
-	        ['boleto.token.token' => $this->token] :
+	        ['boleto.conta.token' => $this->token] :
 	        [
 	            'boleto.conta.banco'    => $this->banco,
 	            'boleto.conta.agencia'  => $this->agencia,

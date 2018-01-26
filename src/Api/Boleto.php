@@ -64,7 +64,7 @@ class Boleto implements ParserInteface
     private $multa;
 
     /**
-     * @var array
+     * @var string
      */
     private $instrucao;
 
@@ -274,9 +274,9 @@ class Boleto implements ParserInteface
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getInstrucao(): array
+    public function getInstrucao(): string
     {
         return $this->instrucao;
     }
@@ -314,9 +314,9 @@ class Boleto implements ParserInteface
     }
 
     /**
-     * @return Beneficiario
+     * @return Beneficiario|null
      */
-    public function getBeneficiario(): Beneficiario
+    public function getBeneficiario(): ?Beneficiario
     {
         return $this->beneficiario;
     }
@@ -356,7 +356,7 @@ class Boleto implements ParserInteface
      */
     public function parser(): array
     {
-    	$beneficiario = (!empty($this->getBeneficiario())) ? $this->getBeneficiario()->parser() : [];
+    	$beneficiario = (!empty($this->beneficiario)) ? $this->getBeneficiario()->parser() : [];
         return array_merge_recursive([
             'boleto.emissao'    => $this->emissao->format('Y-m-d'),
             'boleto.vencimento' => $this->vencimento->format('Y-m-d'),

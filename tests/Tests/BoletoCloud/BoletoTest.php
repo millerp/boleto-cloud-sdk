@@ -12,7 +12,7 @@ use BoletoCloud\Api\Client;
  * Class BoletoTest
  * @package Tests\BoletoCloud
  */
-class BoletoTest extends \PHPUnit_Framework_TestCase
+class BoletoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Client
@@ -68,9 +68,9 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ->setBeneficiario($beneficiario)
             ->setPagador($pagador)
             ->setEmissao(new \DateTime('2017-01-31'))
-            ->setVencimento(new \DateTime('2017-02-05'))
+            ->setVencimento(new \DateTime())
             ->setDocumento('EX1')
-            ->setNumero(rand(10000000000, 99999999999) . '-P')
+            ->setNumero(rand(11111, 99999).rand(111111, 999999).'-P')
             ->setTitulo('DM')
             ->setValor(121.53)
             ->setInstrucao([
@@ -80,6 +80,7 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ]);
 
         $retorno = $this->client->gerarBoleto($boleto);
+        $this->assertArrayHasKey('boleto_url', $retorno);
         $this->assertEquals(201, $retorno['request']->getStatusCode());
     }
 
@@ -126,7 +127,7 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ->setEmissao(new \DateTime('2017-01-31'))
             ->setVencimento(new \DateTime('2017-02-05'))
             ->setDocumento('EX1')
-            ->setNumero(rand(10000000000, 99999999999) . '-P')
+            ->setNumero(rand(10000000, 99999999) . '-P')
             ->setTitulo('DM')
             ->setValor(121.53)
             ->setInstrucao([
@@ -138,42 +139,4 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
         $retorno = $this->client->gerarBoleto($boleto);
         $this->assertObjectHasAttribute('erro', $retorno);
     }
-
-	public function testCriarBoletoNovaFormaAcerto()
-	{
-		$conta = new Conta();
-		$conta->setToken("api-keyEXEMLODETOKEN");
-
-		$pagadorEndereco = new Boleto\Endereco("pagador");
-		$pagadorEndereco->setCep("36240-000")
-			->setLogradouro("BR-499")
-			->setNumero("s/n")
-			->setBairro("Casa Natal")
-			->setLocalidade("Santos Dumont")
-			->setUf("MG")
-			->setComplemento("Sítio - Subindo a serra da Mantiqueira");
-
-		$pagador = new Pagador();
-		$pagador->setNome("Alberto Santos Dumont")
-			->setCprf("111.111.111-11")
-			->setEndereco($pagadorEndereco);
-
-		$boleto = new Boleto();
-		$boleto->setConta($conta)
-			->setPagador($pagador)
-			->setEmissao(new \DateTime('2017-01-31'))
-			->setVencimento(new \DateTime('2017-02-05'))
-			->setDocumento('EX1')
-			->setNumero(rand(10000000000, 99999999999) . '-P')
-			->setTitulo('DM')
-			->setValor(121.53)
-			->setInstrucao([
-				'Atenção! NÃO RECEBER ESTE BOLETO.' . date('d-m-y H:i:s'),
-				'Este é apenas um teste utilizando a API Boleto Cloud' . date('d-m-y H:i:s'),
-				'Mais info em http://www.boletocloud.com/app/dev/api' . date('d-m-y H:i:s'),
-			]);
-
-		$retorno = $this->client->gerarBoleto($boleto);
-		$this->assertEquals(201, $retorno['request']->getStatusCode());
-	}
 }
