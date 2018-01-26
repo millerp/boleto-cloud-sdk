@@ -12,7 +12,7 @@ use BoletoCloud\Api\Client;
  * Class BoletoTest
  * @package Tests\BoletoCloud
  */
-class BoletoTest extends \PHPUnit_Framework_TestCase
+class BoletoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Client
@@ -68,9 +68,9 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ->setBeneficiario($beneficiario)
             ->setPagador($pagador)
             ->setEmissao(new \DateTime('2017-01-31'))
-            ->setVencimento(new \DateTime('2017-02-05'))
+            ->setVencimento(new \DateTime())
             ->setDocumento('EX1')
-            ->setNumero(rand(10000000000, 99999999999) . '-P')
+            ->setNumero(rand(11111, 99999).rand(111111, 999999).'-P')
             ->setTitulo('DM')
             ->setValor(121.53)
             ->setInstrucao([
@@ -80,6 +80,7 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ]);
 
         $retorno = $this->client->gerarBoleto($boleto);
+        $this->assertArrayHasKey('boleto_url', $retorno);
         $this->assertEquals(201, $retorno['request']->getStatusCode());
     }
 
@@ -126,7 +127,7 @@ class BoletoTest extends \PHPUnit_Framework_TestCase
             ->setEmissao(new \DateTime('2017-01-31'))
             ->setVencimento(new \DateTime('2017-02-05'))
             ->setDocumento('EX1')
-            ->setNumero(rand(10000000000, 99999999999) . '-P')
+            ->setNumero(rand(10000000, 99999999) . '-P')
             ->setTitulo('DM')
             ->setValor(121.53)
             ->setInstrucao([

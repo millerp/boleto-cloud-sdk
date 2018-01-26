@@ -36,10 +36,11 @@ class Client
      */
     private $baseUrl;
 
-    /**
-     * Boleto constructor.
-     * @param array $params
-     */
+	/**
+	 * Boleto constructor.
+	 * @param array $params
+	 * @throws \Exception
+	 */
     public function __construct(array $params = [])
     {
         if (!empty($params['env'])) {
