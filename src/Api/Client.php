@@ -96,4 +96,77 @@ class Client
         }
     }
 
+    public function exportarArquivoRemessa(Boleto\Conta $conta)
+    {
+	    try {
+		    $response = $this->httpClient->post('arquivos/cnab/remessas', [
+			    'form_params' => $conta->parser()
+		    ]);
+
+		    if($response->getStatusCode() != 201) {
+		    	// Nenhum boleto para remessa ou algum outro erro ocorreu
+			    return [
+				    'arquivo_url'  => null,
+				    'arquivo_nome' => null,
+				    'arquivo'      => null,
+				    'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
+				    'request'      => $response,
+			    ];
+		    }
+
+		    $arquivoUrl = str_replace('/api/v1/', '', $this->baseUrl);
+		    $arquivoUrl = $arquivoUrl . $response->getHeader('Location')[0];
+
+		    $contentDisposition = $response->getHeader('Content-Disposition');
+		    if(!empty($contentDisposition[0])) {
+		    	$parts = explode('filename=', $contentDisposition[0]);
+			    $arquivoNome = (!empty($parts[1])) ? $parts[1] : null;
+		    } else {
+		    	$arquivoNome = null;
+		    }
+
+		    return [
+			    'arquivo_url'  => $arquivoUrl,
+			    'arquivo_nome' => $arquivoNome,
+			    'arquivo'      => $response->getBody(),
+			    'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
+			    'request'      => $response,
+		    ];
+
+	    } catch (RequestException $e) {
+		    return json_decode($e->getResponse()->getBody()->getContents(), true);
+	    }
+    }
+
+	public function processarArquivoRetorno(string $arquivo)
+	{
+		try {
+			$cfile = new \CURLFile($arquivo, 'application/text', 'arquivo');
+
+			$response = $this->httpClient->post('arquivos/cnab/remessas', [
+				'arquivo' => $cfile
+			]);
+
+			if($response->getStatusCode() != 201) {
+				// Arquivo nao processado ou ja processado anteriormente
+				return [
+					'arquivo'      => null,
+					'json'         => null,
+					'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
+					'request'      => $response,
+				];
+			}
+
+			return [
+				'arquivo'      => $response->getBody(),
+				'json'         => json_decode($response->getBody()->getContents(), true),
+				'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
+				'request'      => $response,
+			];
+
+		} catch (RequestException $e) {
+			return json_decode($e->getResponse()->getBody()->getContents(), true);
+		}
+	}
+
 }
