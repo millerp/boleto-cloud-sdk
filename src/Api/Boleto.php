@@ -363,7 +363,7 @@ class Boleto implements ParserInteface
             'boleto.documento'  => $this->documento,
             'boleto.numero'     => $this->numero,
             'boleto.titulo'     => $this->titulo,
-            'boleto.valor'      => $this->valor,
+            'boleto.valor'      => number_format($this->valor, 2, '.', ''),
         ], $this->getConta()->parser(), $beneficiario, $this->getPagador()->parser());
     }
 }
