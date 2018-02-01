@@ -65,7 +65,7 @@ class Client
         $this->baseUrl = (($this->env == 'sandbox') ? self::HOSTNAME_SANDBOX : self::HOSTNAME_PROD);
         $this->httpClient = new GuzzleClient([
             'base_uri' => $this->baseUrl,
-            'auth'     => [$this->token, 'token'],
+            'auth'     => [$this->token, 'token']
         ]);
     }
 
@@ -77,8 +77,8 @@ class Client
     {
         try {
             $response = $this->httpClient->post('boletos', [
-                'form_params' => $boleto->parser(),
-                'query'       => $boleto->getInstrucao(),
+                'form_params' => $boleto->parser('boleto'),
+                'query'       => $boleto->getInstrucao()
             ]);
 
             $boletoUrl = str_replace('/api/v1/', '', $this->baseUrl);
@@ -88,7 +88,7 @@ class Client
                 'boleto_url'   => $boletoUrl,
                 'boleto_token' => $response->getHeader('X-BoletoCloud-Token')[0],
                 'pdf'          => $response->getBody(),
-                'request'      => $response,
+                'request'      => $response
             ];
 
         } catch (RequestException $e) {
@@ -100,7 +100,7 @@ class Client
     {
 	    try {
 		    $response = $this->httpClient->post('arquivos/cnab/remessas', [
-			    'form_params' => $conta->parser()
+			    'form_params' => $conta->parser('remessa')
 		    ]);
 
 		    if($response->getStatusCode() != 201) {
@@ -109,8 +109,7 @@ class Client
 				    'arquivo_url'  => null,
 				    'arquivo_nome' => null,
 				    'arquivo'      => null,
-				    'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
-				    'request'      => $response,
+				    'request'      => $response
 			    ];
 		    }
 
@@ -130,7 +129,7 @@ class Client
 			    'arquivo_nome' => $arquivoNome,
 			    'arquivo'      => $response->getBody(),
 			    'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
-			    'request'      => $response,
+			    'request'      => $response
 		    ];
 
 	    } catch (RequestException $e) {
@@ -152,8 +151,7 @@ class Client
 				return [
 					'arquivo'      => null,
 					'json'         => null,
-					'token'        => $response->getHeader('X-BoletoCloud-Token')[0],
-					'request'      => $response,
+					'request'      => $response
 				];
 			}
 

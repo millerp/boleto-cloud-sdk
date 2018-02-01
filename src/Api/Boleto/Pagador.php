@@ -61,12 +61,16 @@ class Pagador implements ParserInteface
         return $this;
     }
 
-    public function parser(): array
+	/**
+	 * @param string $raiz
+	 * @return array
+	 */
+    public function parser(string $raiz): array
     {
         return array_merge([
-            'boleto.pagador.nome' => $this->nome,
-            'boleto.pagador.cprf' => $this->cprf,
-        ], $this->getEndereco()->parser());
+	        $raiz . '.pagador.nome' => $this->nome,
+	        $raiz . '.pagador.cprf' => $this->cprf,
+        ], $this->getEndereco()->parser($raiz));
     }
 
     /**

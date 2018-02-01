@@ -80,11 +80,15 @@ class Beneficiario implements ParserInteface
         return $this;
     }
 
-	public function parser(): array
+	/**
+	 * @param string $raiz
+	 * @return array
+	 */
+	public function parser(string $raiz): array
 	{
 		return array_merge([
-			'boleto.beneficiario.nome' => $this->nome,
-			'boleto.beneficiario.cprf' => $this->cprf,
-		], $this->getEndereco()->parser());
+			$raiz . '.beneficiario.nome' => $this->nome,
+			$raiz . '.beneficiario.cprf' => $this->cprf,
+		], $this->getEndereco()->parser($raiz));
 	}
 }

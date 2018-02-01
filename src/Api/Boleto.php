@@ -351,19 +351,20 @@ class Boleto implements ParserInteface
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function parser(): array
+	/**
+	 * @param string $raiz
+	 * @return array
+	 */
+    public function parser(string $raiz): array
     {
-    	$beneficiario = (!empty($this->beneficiario)) ? $this->getBeneficiario()->parser() : [];
+    	$beneficiario = (!empty($this->beneficiario)) ? $this->getBeneficiario()->parser($raiz) : [];
         return array_merge_recursive([
-            'boleto.emissao'    => $this->emissao->format('Y-m-d'),
-            'boleto.vencimento' => $this->vencimento->format('Y-m-d'),
-            'boleto.documento'  => $this->documento,
-            'boleto.numero'     => $this->numero,
-            'boleto.titulo'     => $this->titulo,
-            'boleto.valor'      => number_format($this->valor, 2, '.', ''),
-        ], $this->getConta()->parser(), $beneficiario, $this->getPagador()->parser());
+	        $raiz . '.emissao'    => $this->emissao->format('Y-m-d'),
+	        $raiz . '.vencimento' => $this->vencimento->format('Y-m-d'),
+	        $raiz . '.documento'  => $this->documento,
+	        $raiz . '.numero'     => $this->numero,
+	        $raiz . '.titulo'     => $this->titulo,
+	        $raiz . '.valor'      => number_format($this->valor, 2, '.', ''),
+        ], $this->getConta()->parser($raiz), $beneficiario, $this->getPagador()->parser($raiz));
     }
 }

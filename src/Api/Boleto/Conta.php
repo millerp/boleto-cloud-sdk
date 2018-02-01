@@ -128,15 +128,19 @@ class Conta implements ParserInteface
 		return $this;
 	}
 
-    public function parser(): array
+	/**
+	 * @param string $raiz
+	 * @return array
+	 */
+    public function parser(string $raiz): array
     {
         return ($this->token != null) ?
-	        ['boleto.conta.token' => $this->token] :
+	        [$raiz . '.conta.token' => $this->token] :
 	        [
-	            'boleto.conta.banco'    => $this->banco,
-	            'boleto.conta.agencia'  => $this->agencia,
-	            'boleto.conta.numero'   => $this->numero,
-	            'boleto.conta.carteira' => $this->carteira,
+		        $raiz . '.conta.banco'    => $this->banco,
+		        $raiz . '.conta.agencia'  => $this->agencia,
+		        $raiz . '.conta.numero'   => $this->numero,
+		        $raiz . '.conta.carteira' => $this->carteira,
 	        ];
     }
 }
