@@ -186,16 +186,20 @@ class Endereco implements ParserInteface
         return $this;
     }
 
-    public function parser(): array
+	/**
+	 * @param string $raiz
+	 * @return array
+	 */
+    public function parser(string $raiz): array
     {
         return [
-            'boleto.' . $this->tipo . '.endereco.cep'         => $this->cep,
-            'boleto.' . $this->tipo . '.endereco.uf'          => $this->uf,
-            'boleto.' . $this->tipo . '.endereco.localidade'  => $this->localidade,
-            'boleto.' . $this->tipo . '.endereco.bairro'      => $this->bairro,
-            'boleto.' . $this->tipo . '.endereco.logradouro'  => $this->logradouro,
-            'boleto.' . $this->tipo . '.endereco.numero'      => $this->numero,
-            'boleto.' . $this->tipo . '.endereco.complemento' => $this->complemento,
+	        $raiz . '.' . $this->tipo . '.endereco.cep'         => $this->cep,
+	        $raiz . '.' . $this->tipo . '.endereco.uf'          => $this->uf,
+	        $raiz . '.' . $this->tipo . '.endereco.localidade'  => $this->localidade,
+	        $raiz . '.' . $this->tipo . '.endereco.bairro'      => $this->bairro,
+	        $raiz . '.' . $this->tipo . '.endereco.logradouro'  => $this->logradouro,
+	        $raiz . '.' . $this->tipo . '.endereco.numero'      => $this->numero,
+	        $raiz . '.' . $this->tipo . '.endereco.complemento' => $this->complemento,
         ];
     }
 }
