@@ -164,14 +164,16 @@ class Client
 	 * @param string $arquivo
 	 * @return array|mixed
 	 */
-	public function processarArquivoRetorno(Boleto\Conta $conta, string $arquivo)
+	public function processarArquivoRetorno(string $arquivo)
 	{
 		try {
-			$cfile = new \CURLFile($arquivo, 'application/text', 'arquivo');
-
-			$response = $this->httpClient->post('arquivos/cnab/remessas', [
-				'form_params' => $conta->parser('retorno'),
-				'arquivo' => $cfile
+			$response = $this->httpClient->post('arquivos/cnab/retornos', [
+				'multipart' => [
+					[
+						'name'     => 'arquivo',
+						'contents' => fopen($arquivo, 'r')
+					]
+				]
 			]);
 
 			if($response->getStatusCode() != 201) {
