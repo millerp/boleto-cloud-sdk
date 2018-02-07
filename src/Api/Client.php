@@ -96,6 +96,29 @@ class Client
         }
     }
 
+	/**
+	 * @param string $token
+	 * @return array|mixed
+	 */
+    public function resgatarBoleto(string $token)
+    {
+	    try {
+		    $response = $this->httpClient->get('boletos/' . $token);
+
+		    return [
+			    'pdf'          => $response->getBody(),
+			    'request'      => $response
+		    ];
+
+	    } catch (RequestException $e) {
+		    return json_decode($e->getResponse()->getBody()->getContents(), true);
+	    }
+    }
+
+	/**
+	 * @param Boleto\Conta $conta
+	 * @return array|mixed
+	 */
     public function exportarArquivoRemessa(Boleto\Conta $conta)
     {
 	    try {
@@ -137,13 +160,20 @@ class Client
 	    }
     }
 
+	/**
+	 * @param string $arquivo
+	 * @return array|mixed
+	 */
 	public function processarArquivoRetorno(string $arquivo)
 	{
 		try {
-			$cfile = new \CURLFile($arquivo, 'application/text', 'arquivo');
-
-			$response = $this->httpClient->post('arquivos/cnab/remessas', [
-				'arquivo' => $cfile
+			$response = $this->httpClient->post('arquivos/cnab/retornos', [
+				'multipart' => [
+					[
+						'name'     => 'arquivo',
+						'contents' => fopen($arquivo, 'r')
+					]
+				]
 			]);
 
 			if($response->getStatusCode() != 201) {
