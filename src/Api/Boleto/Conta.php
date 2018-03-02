@@ -3,8 +3,7 @@
 namespace BoletoCloud\Api\Boleto;
 
 /**
- * Class Conta
- * @package BoletoCloud\Api\Boleto
+ * Class Conta.
  */
 class Conta implements ParserInteface
 {
@@ -28,10 +27,10 @@ class Conta implements ParserInteface
      */
     private $carteira;
 
-	/**
-	 * @var string
-	 */
-	private $token;
+    /**
+     * @var string
+     */
+    private $token;
 
     /**
      * @return string
@@ -43,9 +42,10 @@ class Conta implements ParserInteface
 
     /**
      * @param string $banco
+     *
      * @return Conta
      */
-    public function setBanco(string $banco): Conta
+    public function setBanco(string $banco): self
     {
         $this->banco = $banco;
 
@@ -62,9 +62,10 @@ class Conta implements ParserInteface
 
     /**
      * @param string $agencia
+     *
      * @return Conta
      */
-    public function setAgencia(string $agencia): Conta
+    public function setAgencia(string $agencia): self
     {
         $this->agencia = $agencia;
 
@@ -81,9 +82,10 @@ class Conta implements ParserInteface
 
     /**
      * @param string $numero
+     *
      * @return Conta
      */
-    public function setNumero(string $numero): Conta
+    public function setNumero(string $numero): self
     {
         $this->numero = $numero;
 
@@ -100,47 +102,50 @@ class Conta implements ParserInteface
 
     /**
      * @param int $carteira
+     *
      * @return Conta
      */
-    public function setCarteira(int $carteira): Conta
+    public function setCarteira(int $carteira): self
     {
         $this->carteira = $carteira;
 
         return $this;
     }
 
-	/**
-	 * @return string
-	 */
-	public function getToken(): string
-	{
-		return $this->token;
-	}
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
 
-	/**
-	 * @param string $token
-	 * @return Conta
-	 */
-	public function setToken(string $token): Conta
-	{
-		$this->token = $token;
+    /**
+     * @param string $token
+     *
+     * @return Conta
+     */
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $raiz
-	 * @return array
-	 */
+    /**
+     * @param string $raiz
+     *
+     * @return array
+     */
     public function parser(string $raiz): array
     {
         return ($this->token != null) ?
-	        [$raiz . '.conta.token' => $this->token] :
-	        [
-		        $raiz . '.conta.banco'    => $this->banco,
-		        $raiz . '.conta.agencia'  => $this->agencia,
-		        $raiz . '.conta.numero'   => $this->numero,
-		        $raiz . '.conta.carteira' => $this->carteira,
-	        ];
+            [$raiz.'.conta.token' => $this->token] :
+            [
+                $raiz.'.conta.banco'    => $this->banco,
+                $raiz.'.conta.agencia'  => $this->agencia,
+                $raiz.'.conta.numero'   => $this->numero,
+                $raiz.'.conta.carteira' => $this->carteira,
+            ];
     }
 }

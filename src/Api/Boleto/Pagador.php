@@ -3,8 +3,7 @@
 namespace BoletoCloud\Api\Boleto;
 
 /**
- * Class Pagador
- * @package BoletoCloud\Api\Boleto
+ * Class Pagador.
  */
 class Pagador implements ParserInteface
 {
@@ -33,9 +32,10 @@ class Pagador implements ParserInteface
 
     /**
      * @param string $nome
+     *
      * @return Pagador
      */
-    public function setNome(string $nome): Pagador
+    public function setNome(string $nome): self
     {
         $this->nome = $nome;
 
@@ -52,24 +52,26 @@ class Pagador implements ParserInteface
 
     /**
      * @param string $cprf
+     *
      * @return Pagador
      */
-    public function setCprf(string $cprf): Pagador
+    public function setCprf(string $cprf): self
     {
         $this->cprf = $cprf;
 
         return $this;
     }
 
-	/**
-	 * @param string $raiz
-	 * @return array
-	 */
+    /**
+     * @param string $raiz
+     *
+     * @return array
+     */
     public function parser(string $raiz): array
     {
         return array_merge([
-	        $raiz . '.pagador.nome' => $this->nome,
-	        $raiz . '.pagador.cprf' => $this->cprf,
+            $raiz.'.pagador.nome' => $this->nome,
+            $raiz.'.pagador.cprf' => $this->cprf,
         ], $this->getEndereco()->parser($raiz));
     }
 
@@ -83,9 +85,10 @@ class Pagador implements ParserInteface
 
     /**
      * @param Endereco $endereco
+     *
      * @return Pagador
      */
-    public function setEndereco(Endereco $endereco): Pagador
+    public function setEndereco(Endereco $endereco): self
     {
         $this->endereco = $endereco;
 

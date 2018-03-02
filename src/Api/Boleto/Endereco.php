@@ -3,8 +3,7 @@
 namespace BoletoCloud\Api\Boleto;
 
 /**
- * Class Endereco
- * @package BoletoCloud\Api\Boleto
+ * Class Endereco.
  */
 class Endereco implements ParserInteface
 {
@@ -63,9 +62,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $cep
+     *
      * @return Endereco
      */
-    public function setCep(string $cep): Endereco
+    public function setCep(string $cep): self
     {
         $this->cep = $cep;
 
@@ -82,9 +82,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $uf
+     *
      * @return Endereco
      */
-    public function setUf(string $uf): Endereco
+    public function setUf(string $uf): self
     {
         $this->uf = $uf;
 
@@ -101,9 +102,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $localidade
+     *
      * @return Endereco
      */
-    public function setLocalidade(string $localidade): Endereco
+    public function setLocalidade(string $localidade): self
     {
         $this->localidade = $localidade;
 
@@ -120,9 +122,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $bairro
+     *
      * @return Endereco
      */
-    public function setBairro(string $bairro): Endereco
+    public function setBairro(string $bairro): self
     {
         $this->bairro = $bairro;
 
@@ -139,9 +142,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $logradouro
+     *
      * @return Endereco
      */
-    public function setLogradouro(string $logradouro): Endereco
+    public function setLogradouro(string $logradouro): self
     {
         $this->logradouro = $logradouro;
 
@@ -158,9 +162,10 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $numero
+     *
      * @return Endereco
      */
-    public function setNumero(string $numero): Endereco
+    public function setNumero(string $numero): self
     {
         $this->numero = $numero;
 
@@ -177,29 +182,31 @@ class Endereco implements ParserInteface
 
     /**
      * @param string $complemento
+     *
      * @return Endereco
      */
-    public function setComplemento(string $complemento): Endereco
+    public function setComplemento(string $complemento): self
     {
         $this->complemento = $complemento;
 
         return $this;
     }
 
-	/**
-	 * @param string $raiz
-	 * @return array
-	 */
+    /**
+     * @param string $raiz
+     *
+     * @return array
+     */
     public function parser(string $raiz): array
     {
         return [
-	        $raiz . '.' . $this->tipo . '.endereco.cep'         => $this->cep,
-	        $raiz . '.' . $this->tipo . '.endereco.uf'          => $this->uf,
-	        $raiz . '.' . $this->tipo . '.endereco.localidade'  => $this->localidade,
-	        $raiz . '.' . $this->tipo . '.endereco.bairro'      => $this->bairro,
-	        $raiz . '.' . $this->tipo . '.endereco.logradouro'  => $this->logradouro,
-	        $raiz . '.' . $this->tipo . '.endereco.numero'      => $this->numero,
-	        $raiz . '.' . $this->tipo . '.endereco.complemento' => $this->complemento,
+            $raiz.'.'.$this->tipo.'.endereco.cep'         => $this->cep,
+            $raiz.'.'.$this->tipo.'.endereco.uf'          => $this->uf,
+            $raiz.'.'.$this->tipo.'.endereco.localidade'  => $this->localidade,
+            $raiz.'.'.$this->tipo.'.endereco.bairro'      => $this->bairro,
+            $raiz.'.'.$this->tipo.'.endereco.logradouro'  => $this->logradouro,
+            $raiz.'.'.$this->tipo.'.endereco.numero'      => $this->numero,
+            $raiz.'.'.$this->tipo.'.endereco.complemento' => $this->complemento,
         ];
     }
 }

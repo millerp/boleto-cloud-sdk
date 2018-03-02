@@ -8,8 +8,7 @@ use BoletoCloud\Api\Boleto\Pagador;
 use BoletoCloud\Api\Boleto\ParserInteface;
 
 /**
- * Class Boleto
- * @package BoletoCloud\Api
+ * Class Boleto.
  */
 class Boleto implements ParserInteface
 {
@@ -93,9 +92,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param string $titulo
+     *
      * @return Boleto
      */
-    public function setTitulo(string $titulo): Boleto
+    public function setTitulo(string $titulo): self
     {
         $this->titulo = $titulo;
 
@@ -112,9 +112,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param bool $aceite
+     *
      * @return Boleto
      */
-    public function setAceite(bool $aceite): Boleto
+    public function setAceite(bool $aceite): self
     {
         $this->aceite = $aceite;
 
@@ -131,9 +132,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param string $documento
+     *
      * @return Boleto
      */
-    public function setDocumento(string $documento): Boleto
+    public function setDocumento(string $documento): self
     {
         $this->documento = $documento;
 
@@ -150,9 +152,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param string $numero
+     *
      * @return Boleto
      */
-    public function setNumero(string $numero): Boleto
+    public function setNumero(string $numero): self
     {
         $this->numero = $numero;
 
@@ -169,9 +172,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param int $sequencial
+     *
      * @return Boleto
      */
-    public function setSequencial(int $sequencial): Boleto
+    public function setSequencial(int $sequencial): self
     {
         $this->sequencial = $sequencial;
 
@@ -188,9 +192,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param \DateTime $emissao
+     *
      * @return Boleto
      */
-    public function setEmissao(\DateTime $emissao): Boleto
+    public function setEmissao(\DateTime $emissao): self
     {
         $this->emissao = $emissao;
 
@@ -207,9 +212,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param \DateTime $vencimento
+     *
      * @return Boleto
      */
-    public function setVencimento(\DateTime $vencimento): Boleto
+    public function setVencimento(\DateTime $vencimento): self
     {
         $this->vencimento = $vencimento;
 
@@ -226,9 +232,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param float $valor
+     *
      * @return Boleto
      */
-    public function setValor(float $valor): Boleto
+    public function setValor(float $valor): self
     {
         $this->valor = $valor;
 
@@ -245,9 +252,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param float $juros
+     *
      * @return Boleto
      */
-    public function setJuros(float $juros): Boleto
+    public function setJuros(float $juros): self
     {
         $this->juros = $juros;
 
@@ -264,9 +272,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param float $multa
+     *
      * @return Boleto
      */
-    public function setMulta(float $multa): Boleto
+    public function setMulta(float $multa): self
     {
         $this->multa = $multa;
 
@@ -283,12 +292,13 @@ class Boleto implements ParserInteface
 
     /**
      * @param array $instrucao
+     *
      * @return Boleto
      */
-    public function setInstrucao(array $instrucao): Boleto
+    public function setInstrucao(array $instrucao): self
     {
         foreach ($instrucao as $v) {
-            $this->instrucao .= urlencode('boleto.instrucao') . '=' . urlencode($v) . '&';
+            $this->instrucao .= urlencode('boleto.instrucao').'='.urlencode($v).'&';
         }
 
         return $this;
@@ -304,9 +314,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param Conta $conta
+     *
      * @return Boleto
      */
-    public function setConta(Conta $conta): Boleto
+    public function setConta(Conta $conta): self
     {
         $this->conta = $conta;
 
@@ -323,9 +334,10 @@ class Boleto implements ParserInteface
 
     /**
      * @param Beneficiario $beneficiario
+     *
      * @return Boleto
      */
-    public function setBeneficiario(Beneficiario $beneficiario): Boleto
+    public function setBeneficiario(Beneficiario $beneficiario): self
     {
         $this->beneficiario = $beneficiario;
 
@@ -342,29 +354,32 @@ class Boleto implements ParserInteface
 
     /**
      * @param Pagador $pagador
+     *
      * @return Boleto
      */
-    public function setPagador(Pagador $pagador): Boleto
+    public function setPagador(Pagador $pagador): self
     {
         $this->pagador = $pagador;
 
         return $this;
     }
 
-	/**
-	 * @param string $raiz
-	 * @return array
-	 */
+    /**
+     * @param string $raiz
+     *
+     * @return array
+     */
     public function parser(string $raiz): array
     {
-    	$beneficiario = (!empty($this->beneficiario)) ? $this->getBeneficiario()->parser($raiz) : [];
+        $beneficiario = (!empty($this->beneficiario)) ? $this->getBeneficiario()->parser($raiz) : [];
+
         return array_merge_recursive([
-	        $raiz . '.emissao'    => $this->emissao->format('Y-m-d'),
-	        $raiz . '.vencimento' => $this->vencimento->format('Y-m-d'),
-	        $raiz . '.documento'  => $this->documento,
-	        $raiz . '.numero'     => $this->numero,
-	        $raiz . '.titulo'     => $this->titulo,
-	        $raiz . '.valor'      => number_format($this->valor, 2, '.', ''),
+            $raiz.'.emissao'    => $this->emissao->format('Y-m-d'),
+            $raiz.'.vencimento' => $this->vencimento->format('Y-m-d'),
+            $raiz.'.documento'  => $this->documento,
+            $raiz.'.numero'     => $this->numero,
+            $raiz.'.titulo'     => $this->titulo,
+            $raiz.'.valor'      => number_format($this->valor, 2, '.', ''),
         ], $this->getConta()->parser($raiz), $beneficiario, $this->getPagador()->parser($raiz));
     }
 }
