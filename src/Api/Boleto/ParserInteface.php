@@ -1,4 +1,5 @@
 <?php
+
 namespace BoletoCloud\Api\Boleto;
 
 interface ParserInteface
