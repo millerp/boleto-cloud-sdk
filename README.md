@@ -1,4 +1,4 @@
-# Boleto Cloud PHP SDK - [![Code Climate](https://codeclimate.com/github/millerp/boleto-cloud-sdk/badges/gpa.svg)](https://codeclimate.com/github/millerp/boleto-cloud-sdk)
+# Boleto Cloud PHP SDK - [![Code Climate](https://codeclimate.com/github/millerp/boleto-cloud-sdk/badges/gpa.svg)](https://codeclimate.com/github/millerp/boleto-cloud-sdk) [![StyleCI]( https://styleci.io/repos/80548999/shield?style=flat&branch=master)](https://styleci.io/repos/80548999)
 SDK de integraçao com a API Boleto Cloud
 
 - Boleto Cloud - https://boletocloud.com/
